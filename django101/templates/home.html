@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>{{ title }}</h1>
+<ul>
+    {% if tasks %}
+        {% for task in tasks %}
+            <li>
+                {{ task.title }}
+            </li>
+        {% endfor %}
+    {% else %}
+        <h2>No tasks</h2>
+    {% endif %}
+</ul>
+</body>
+</html>
