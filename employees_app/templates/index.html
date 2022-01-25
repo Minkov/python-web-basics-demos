@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>It works</h1>
+<h2>The number is {{ number }}</h2>
+<a href="{% url 'go to home' %}">Go to HOME</a>
+<ul>
+    {% for number in numbers %}
+        <li>Number {{ number }}</li>
+    {% endfor %}
+</ul>
+</body>
+</html>
