@@ -20,6 +20,8 @@ from django.shortcuts import redirect, render
 #     )
 from django.urls import reverse_lazy
 
+from employees_app.employees.models import Department, Employee
+
 
 def home(request):
     print(reverse_lazy('index'))
@@ -57,7 +59,34 @@ def department_details(request, id):
 
 
 def list_departments(request):
-    return HttpResponse('This is a list of departments')
+    department = Department(
+        name=f'Department {random.randint(1, 1024)}',
+    )
+    department.save()
+
+    # Don't do this, this is create, not update
+    department.pk = random.randint(1024, 2048)
+    department.save()
+
+    print(list(Department.objects.filter(name='Tv app')))
+    print(Department.objects.get(name='Tv app'))
+
+    print(list(Department.objects.filter(name='Tv app 2')))
+    print(Department.objects.get(name__contains='app'))
+    # print(Department.objects.get(name='Tv app 2'))
+
+    Department.objects.create(
+        name=f'Department {random.randint(1, 1024)}',
+    )
+
+    context = {
+        # 'departments': Department.objects.filter(name__endswith='app'),
+        'departments': Department.objects
+            .prefetch_related('employee_set')
+            .all(),
+        'employees': Employee.objects.all(),
+    }
+    return render(request, 'list_departments.html', context)
 
 
 def create_department(request):
