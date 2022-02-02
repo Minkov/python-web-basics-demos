@@ -1,0 +1,22 @@
+{#<ul>#}
+{#    {% for department in departments %}#}
+{#        <li>#}
+{#            {{ department.name }}#}
+{#        </li>#}
+{#    {% endfor %}#}
+{#</ul>#}
+
+<table>
+    <tr>
+        <td>Id</td>
+        <td>Name</td>
+        <td>Employees</td>
+    </tr>
+    {% for department in departments %}
+        <tr>
+            <td>{{ department.id }}</td>
+            <td>{{ department.name }}</td>
+            <td>{{ department.employee_set.count }}</td>
+        </tr>
+    {% endfor %}
+</table>
