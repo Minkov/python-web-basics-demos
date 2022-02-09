@@ -1,3 +1,4 @@
+from django.core import validators
 from django.db import models
 from django.urls import reverse
 
@@ -59,6 +60,9 @@ class Employee(models.Model):
         max_length=10,
         unique=True,
         verbose_name="EGN",
+        validators=(
+            validators.MinLengthValidator(10),  # At the end
+        )
     )
 
     job_title = models.IntegerField(
@@ -78,6 +82,12 @@ class Employee(models.Model):
     department = models.ForeignKey(
         Department,
         on_delete=models.CASCADE,
+    )
+
+    image = models.ImageField(
+        null=True,
+        blank=True,
+        upload_to='profiles',
     )
 
     class Meta:

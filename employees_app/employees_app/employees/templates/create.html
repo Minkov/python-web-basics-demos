@@ -1,0 +1,67 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    <form method="post" action="{% url 'create employee' %}"> {# Mandatory #}
+        {{ employee_form }}
+        {#        <h3>Manual:</h3>#}
+        {#        {{ employee_form.age.errors }}#}
+        {#        {% for err in employee_form.age.errors %}#}
+        {#            {{ err }}#}
+        {#        {% endfor %}#}
+        <div>
+            {% for field, errors in employee_form.errors.items %}
+                {{ field }}:
+                {% for err in errors %}
+                    {{ err }}
+                {% endfor %}
+            {% endfor %}
+        </div>
+        {% csrf_token %}
+        <button>Save me</button>
+        {# Mandatory #}
+        {# <input type="submit" value="Save" /> #}
+    </form>
+
+    <form method="get" action="{% url 'create employee' %}">
+        {{ employee_order_form }}
+        <button>Order</button>
+    </form>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th scope="col">First name</th>
+            <th scope="col">Last name</th>
+            <th scope="col">Job title</th>
+            <th scope="col">Company</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for employee in employees %}
+            <tr>
+                <td>
+                    {% if employee.image %}
+                        <img height="40" src="{{ employee.image.url }}"/>
+                    {% else %}
+                        No image
+                    {% endif %}
+                </td>
+                <td>{{ employee.first_name }}</td>
+                <td>{{ employee.last_name }}</td>
+                <td>{{ employee.job_title }}</td>
+                <td>{{ employee.company }}</td>
+                <td><a href="{% url 'edit employee' employee.pk %}">Edit</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <script>
+        window.errors = [
+            {% for err in employee_form.age.errors %}
+                '{{ err }}',
+            {% endfor %}
+        ];
+    </script>
+{% endblock %}
