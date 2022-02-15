@@ -1,0 +1,32 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <title>Expenses Tracker</title>
+</head>
+
+<body>
+
+<nav>
+    <ul>
+        <li class="img"><img src="{% static 'images/dollar.png' %}" alt="dollar"></li>
+        <li><a href="{% url 'show index' %}">Expenses Tracker</a></li>
+        {% if not no_profile %}
+            <li class="right"><a href="{% url 'show profile' %}">Profile</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+<div class="body">
+    {% block page_content %}
+    {% endblock %}
+</div>
+
+<footer>
+    <div>Python Web Basics Exam Preparation @SoftUni</div>
+</footer>
+
+</body>
+</html>

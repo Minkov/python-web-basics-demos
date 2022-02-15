@@ -1,0 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
+body {
+    background: #f6f5f5;
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+nav {
+    background: #00334e;
+    height: 60px;
+}
+
+nav ul {
+    display: flex;
+}
+
+nav ul li,
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    list-style: none;
+    font-size: 22px;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+nav ul li.right {
+    position: absolute;
+    right: 5px;
+}
+
+nav ul li.right a {
+    font-size: 18px;
+    margin: 0 auto;
+}
+
+nav ul li.img {
+    margin-top: 5px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.form {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    width: 30%;
+    margin: 0 auto;
+}
+
+input[type=text],
+input[type=url],
+input[type=number],
+select,
+textarea {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=file],
+.form-file {
+  display: block;
+  width: 100%;
+}
+
+input[type=submit],
+.button {
+    background-color: #145374;
+    color: white;
+    padding: 13px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100px;
+    height: 50px;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    display: block;
+    margin: 5px auto 0;
+
+}
+
+input[type=submit]:hover,
+.button:hover {
+    background-color: #c73131;
+    text-decoration: underline;
+}
+
+.button.add {
+    background-color: #145374;
+    height: 22px;
+
+}
+
+.button.edit {
+    background-color: #145374;
+    margin-right: 5px;
+    height: 22px;
+}
+
+.button.delete {
+    background: #c73131;
+    height: 22px;
+}
+
+.button.delete-lg {
+    background: #c73131;
+    height: 50px;
+}
+
+.expenses-list {
+    display: flex;
+    align-items: flex-start;
+    margin: 0 auto;
+}
+
+.expenses-list li {
+    list-style: none;
+    font-size: 18px;
+    padding: 5px;
+}
+
+.expenses-list li.red {
+    color: #c73131;
+}
+
+.expenses-list li.blue {
+    color: #145374;
+}
+
+ul.expenses-list li.green {
+    color: #147444;
+}
+
+.expenses-container {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 50px;
+    margin-bottom: 80px;
+}
+
+.expense-container,
+.expenses-list {
+    width: 33%;
+    -webkit-box-shadow: 13px 21px 60px -9px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 13px 21px 60px -9px rgba(0, 0, 0, 0.75);
+    box-shadow: 13px 21px 60px -9px rgba(0, 0, 0, 0.75);
+    border-radius: 7px;
+    padding: 30px;
+    background: white;
+}
+
+.expense-container h2 {
+    text-align: center;
+}
+
+hr {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.expense-container img {
+    display: block;
+    width: 300px;
+    height: auto;
+    margin: 0 auto;
+}
+
+.expense-container div p {
+    font-weight: bold;
+    font-size: 18px;
+    text-decoration: underline;
+}
+
+.expense-detail {
+    display: flex;
+    justify-content: space-between;
+}
+
+.right {
+    display: flex;
+    justify-content: space-between;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    background: #00334e;
+    width: 100%;
+    padding: 15px 0;
+}
+
+footer div {
+    text-align: center;
+    color: white;
+}

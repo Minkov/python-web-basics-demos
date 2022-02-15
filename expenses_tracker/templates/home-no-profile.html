@@ -1,0 +1,28 @@
+{% extends 'base/base.html' %}
+{% block page_content %}
+
+    <h1>Enter your data</h1>
+    <div class="form">
+        <form method="POST" action="{% url 'create profile' %}" enctype="multipart/form-data">
+            {#            <label for="budget">Budget</label>#}
+            {#            <input type="number" name="budget" required="" id="budget">#}
+            {##}
+            {#            <label for="firstName">First Name</label>#}
+            {#            <input type="text" name="first_name" maxlength="15" required="" id="firstName">#}
+            {##}
+            {#            <label for="lastName">Last Name</label>#}
+            {#            <input type="text" name="last_name" maxlength="15" required="" id="lastName">#}
+            {##}
+            {#            <label for="image">Profile Image:</label>#}
+            {#            <input type="file" class="form-file" name="last_name" id="image">#}
+
+            {{ form }}
+            {% csrf_token %}
+
+            <!-- Profile Create Button -->
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    <!-- End Profile Create Form -->
+
+{% endblock %}
