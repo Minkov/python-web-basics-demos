@@ -1,0 +1,91 @@
+{% extends 'base/base.html' %}
+{% load filters %} {# the name of the file #}
+{% load tags %}
+
+{% block page_title %}{{ title }}{% endblock %}
+
+{% block page_content %}
+    <div>
+        Original: {{ values }}
+    </div>
+
+    <div>
+        Odd: {{ values|odd }} {# `odd` is the name of the filter #}
+    </div>
+
+    {% student_info student=student %}
+    <div>
+        {% sample_tag %}
+    </div>
+    <div>
+        {% sample_tag 17 'Doncho' True %}
+    </div>
+    <div>
+        {% sample_tag department='Engineering' company='SoftUni' %}
+    </div>
+
+    {{ csrf_token }}
+    {% csrf_token %}
+    <h1>
+        Original: {{ title }}: {{ value }}
+    </h1>
+    <h1>
+        Upped: {{ title|upper }}: {{ value }}
+    </h1>
+    <h1>
+        Capped first: {{ title|capfirst }}: {{ value }}
+    </h1>
+    <h1>
+        <!--                          capfirst(lower(title)) -->
+        Lowered then capped first: {{ title|lower|capfirst }}: {{ value }}
+    </h1>
+
+    <h1>
+        <!--                          capfirst(lower(title)) -->
+        Truncated 10: {{ title|truncatechars:10 }}: {{ value }}
+    </h1>
+
+    <h2>{{ now }}</h2>
+    <h2>{{ now|date:'y/M/d' }}</h2>
+    <h2>{{ now|app_style }}</h2>
+
+    {{ 2|add:3|add:4 }}
+    <!-- info['address'] in python -->
+    {{ info.address }}
+    {{ student.get_info }}
+    {{ student_info }}
+
+    <div>
+        {% if students %}
+            {{ students|join:', ' }}
+        {% else %}
+            No students
+        {% endif %}
+    </div>
+
+    <h3>Pure `for`</h3>
+    <ul class="list-group">
+        {% for student in students %}
+            <li class="list-group-item">{{ student }}</li>
+        {% empty %}
+            <li class="list-group-item">No students</li>
+        {% endfor %}
+    </ul>
+
+    <h3>`for` with `ifchanged`</h3>
+
+    <ul>
+        {% for student in students %}
+            {% ifchanged student %}
+                <li>{{ student }}</li>
+            {% endifchanged %}
+        {% endfor %}
+    </ul>
+
+    <!-- This is pure/native HTML comment -->
+    {# To comment use CTRL+/ #}
+
+    {% comment %}
+ This is a multiline #}
+{% endcomment %}
+{% endblock %}
