@@ -1,0 +1,63 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div style="display: flex; justify-content: space-between">
+    <div>
+        <h1>In memory</h1>
+        <ul>
+            {% for employee in employees %}
+                <li>
+                    <div>
+                        {{ employee.first_name }} {{ employee.last_name }}
+                    </div>
+                    <div>
+                        {{ employee.department.name }}
+                    </div>
+                    <div>
+                        Experience: {{ employee.years_of_experience }},
+                        Age: {{ employee.age }}
+                    </div>
+
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div>
+        <h1>From DB</h1>
+        <ul>
+            {% for employee in employees2 %}
+                <li>
+                    <div>
+                        {{ employee.fullname }}
+                    </div>
+                    <div>
+                        in <a href="{{ employee.department.get_absolute_url }}"> {{ employee.department.name }}</a>
+                        for {{ employee.year_of_employment }}
+                    </div>
+                    <div>
+                        Experience: {{ employee.years_of_experience }},
+                        Age: {{ employee.age }}
+                    </div>
+                    <a href="{% url 'delete employee' pk=employee.pk %}">
+                        Delete
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <h1>
+        {{ department.name }}
+    </h1>
+</div>
+</body>
+</html>

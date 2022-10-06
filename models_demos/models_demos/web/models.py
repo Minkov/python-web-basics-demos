@@ -1,55 +1,54 @@
-from enum import Enum
+from datetime import date
 
 from django.db import models
+from django.urls import reverse
+
+from models_demos.common.validators import validate_in_the_past
+
+
+class AuditInfoMixin(models.Model):
+    class Meta:
+        # 1. No table will be created in the DB
+        # 2. Can be inherited in other models
+        abstract = True
+
+    # This will be automatically set on creation (insert)
+    created_on = models.DateTimeField(
+        auto_now_add=True,  # optional
+    )
+
+    # This will be automatically set on each `save`/`update`
+    updated_on = models.DateTimeField(
+        auto_now=True,  # optional
+    )
+
+
+# class DeletableMixin(models.Model):
+#     is_deleted = models.BooleanField(default=False)
+
 
 # models.py
 
-# Model fields == class attributes in Model classes
 
-
-'''
-PostgreSQL: varying char (30)
-SQL Server: VARCHAR(30)
-Other: CHARVAR(30) // only for demo
-
-PostgreSQL: decimal
-SQL Server: money
-'''
-
-'''
-# First migration
-CREATE TABLE "web_employee" (
-    "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, 
-    "first_name" varchar(30) NOT NULL,
-    "years_of_experience" integer unsigned NOT NULL CHECK ("years_of_experience" >= 0),
-    "review" text NOT NULL,
-    "start_date" date NOT NULL,
-    "email" varchar(254) NOT NULL,
-    "created_on" datetime NOT NULL,
-    "updated_on" datetime NOT NULL);
-# Second migration
-ALTER TABLE "web_employee" ADD COLUMN "last_name" varchar(40) NULL; 
-CREATE TABLE "new__web_employee" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "years_of_experience" integer unsigned NOT NULL CHECK ("years_of_experience" >= 0), "review" text NOT NULL, "start_date" date NOT NULL, "email" varchar(254) NOT NULL, "created_on" datetime NOT NULL, "updated_on" datetime NOT NULL, "last_name" varchar(40) NULL, "first_name" varchar(50) NOT NULL); (params None)
-INSERT INTO "new__web_employee" ("id", "years_of_experience", "review", "start_date", "email", "created_on", "updated_on", "last_name", "first_name") SELECT "id", "years_of_experience", "review", "start_date", "email", "created_on", "updated_on", "last_name", "first_name" FROM "web_employee"; (params ())
-DROP TABLE "web_employee"; (params ())
-ALTER TABLE "new__web_employee" RENAME TO "web_employee"; (params ())
-    
-'''
-
-
-# class EmployeeLevel(Enum):
-#     JUNIOR = 'Junior',
-#     REGULAR = 'Regular',
-#     SENIOR = 'SENIOR'
-
-class Department(models.Model):
+class Department(AuditInfoMixin, models.Model):
     name = models.CharField(max_length=15)
+    slug = models.SlugField(
+        unique=True,
+    )
 
     def __str__(self):
         return f'Id: {self.pk}; Name: {self.name}'
 
+    def get_absolute_url(self):
+        url = reverse('details department', kwargs={
+            'pk': self.pk,
+            'slug': self.slug,
+        })
 
-class Project(models.Model):
+        return url
+
+
+class Project(AuditInfoMixin, models.Model):
     name = models.CharField(
         max_length=30,
     )
@@ -60,7 +59,10 @@ class Project(models.Model):
     deadline = models.DateField()
 
 
-class Employee(models.Model):
+class Employee(AuditInfoMixin, models.Model):
+    class Meta:
+        ordering = ('-years_of_experience', 'age')
+
     LEVEL_JUNIOR = 'Junior'
     LEVEL_REGULAR = 'Regular'
     LEVEL_SENIOR = 'Senior'
@@ -87,8 +89,8 @@ class Employee(models.Model):
         verbose_name='Seniority level',
     )
 
-    age = models.IntegerField(
-        default=-7,
+    age = models.PositiveIntegerField(
+        default=0,
     )
 
     # int > 0
@@ -97,26 +99,17 @@ class Employee(models.Model):
     # Text => strings with unlimited length
     review = models.TextField()
 
-    start_date = models.DateField()
+    start_date = models.DateField(
+        validators=(validate_in_the_past,)
+    )
 
     email = models.EmailField(
         # Adds `UNIQUE` constraint
         unique=True,
-        editable=False,
     )
 
     is_full_time = models.BooleanField(
         null=True,
-    )
-
-    # This will be automatically set on creation (insert)
-    created_on = models.DateTimeField(
-        auto_now_add=True,  # optional
-    )
-
-    # This will be automatically set on each `save`/`update`
-    updated_on = models.DateTimeField(
-        auto_now=True,  # optional
     )
 
     # One-to-many
@@ -135,6 +128,10 @@ class Employee(models.Model):
     def fullname(self):
         return f'{self.first_name} {self.last_name}'
 
+    @property
+    def year_of_employment(self):
+        return date.today() - self.start_date
+
     def __str__(self):
         # self.id == self.pk
         return f'Id: {self.pk}; Name: {self.fullname}'
@@ -149,6 +146,9 @@ class AccessCard(models.Model):
 
 
 class Category(models.Model):
+    class Meta:
+        verbose_name_plural = 'Categories'
+
     name = models.CharField(
         max_length=15,
     )
