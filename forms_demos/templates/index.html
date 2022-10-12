@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Forms
+{% endblock %}
+
+{% block content %}
+    <h2>
+        {% if name %}
+            Hello, {{ name }}! Nice to see you!
+        {% else %}
+            Please, enter your name!
+        {% endif %}
+    </h2>
+
+    {#<form> == <form action="{% url 'index' %}" method="get">#}
+    {{ csrf_token }}
+
+    <h3>Default form</h3>
+    <form method="post" action="{% url 'index' %}">
+        {{ form }}
+        <button>Send name</button>
+        {% csrf_token %}
+        {#    <input type="submit" value="Send name">#}
+    </form>
+
+    <h3>Customized form</h3>
+    <form method="post" action="{% url 'index' %}">
+        {% for field in form %}
+            <label for="{{ field.id_for_label }}">
+                <strong>{{ field.label }}</strong>
+                {{ field }}
+            </label>
+        {% endfor %}
+        <button>Send name</button>
+        {% csrf_token %}
+        {#    <input type="submit" value="Send name">#}
+    </form>
+{% endblock %}
