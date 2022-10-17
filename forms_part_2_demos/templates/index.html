@@ -1,0 +1,5 @@
+<form action="{% url 'index' %}" method="post">
+    {{ form }}
+    <button>Send</button>
+    {% csrf_token %}
+</form>

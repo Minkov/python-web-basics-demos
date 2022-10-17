@@ -1,0 +1,12 @@
+<form method="post" action="{% url 'create person' %}" enctype="multipart/form-data">
+    {#    {{ form }}#}
+
+    {% for field in form %}
+        <div>
+        <input type="{{ field. }}"
+            {{ field }}
+        </div>
+    {% endfor %}
+    <button>Create</button>
+    {% csrf_token %}
+</form>
