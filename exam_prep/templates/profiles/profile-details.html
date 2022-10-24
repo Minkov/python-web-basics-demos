@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section id="detailsPage">
+        <div class="wrapper">
+            <div class="profilePage">
+                <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                     alt="Profile Image">
+            </div>
+
+            <div class="profileText">
+                <h1>Username: {{ profile.username }}</h1>
+                <h1>Email: {{ profile.email }}</h1>
+                {% if profile.age %}
+                    <h1>Age: {{ profile.age }}</h1>
+                {% endif %}
+                <h1>Albums: {{ albums_count }}</h1>
+            </div>
+
+            <div class="actionBtn">
+                <a href="{% url 'delete profile' %}" class="remove">Delete</a>
+            </div>
+
+        </div>
+    </section>
+{% endblock %}
