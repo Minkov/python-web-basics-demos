@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  postgres:    
+  postgres:
     image: postgres
     restart: always
     ports:
@@ -9,16 +9,7 @@ services:
     environment:
       POSTGRES_PASSWORD: 1123QwER
       POSTGRES_USER: postgres
-      POSTGRES_DB: postgres
+      POSTGRES_DB: petstagram_db
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - ./postgresql:/var/lib/postgresql/data
-  pgadmin4:
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: doncho@minkov.com
-      PGADMIN_DEFAULT_PASSWORD: 1123QwER
-    volumes:
-      - ./pgadmin4:/var/lib/pgadmin
-    ports:
-      - "5433:80"

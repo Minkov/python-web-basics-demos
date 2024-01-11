@@ -1,8 +1,8 @@
-
-"""django101 URL Configuration
+"""
+URL configuration for django101 project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.1/topics/http/urls/
+    https://docs.djangoproject.com/en/4.2/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -17,11 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-# django101.urls.py
+urlpatterns = (
+    path("admin/", admin.site.urls),
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    # SITE_URL/tasks/ (localhost:8000/tasks/)
-    path('tasks/', include('django101.tasks.urls')),
-    # path('auth/', include('django101.auth.urls')),
-]
+    # prefix "" for all URLs in `django101.tasks.urls`, i.e. no prefix
+    path("", include("django101.tasks.urls")),
+
+    # prefix "ala-bala/" for all URLs in `django101.tasks.urls`
+    path("ala-bala/", include("django101.tasks.urls")),
+)
+
+# https://HOST:PORT/FULL/PATH?query=params&other=other_params#fragment

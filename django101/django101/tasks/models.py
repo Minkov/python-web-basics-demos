@@ -1,14 +1,12 @@
 from django.db import models
 
 
-# Maps to a DB Table
 class Task(models.Model):
-    # varchar(30) NOT NULL
-    name = models.CharField(
-        max_length=30,
-        null=False,
+    # CharField => string (VARCHAR, varying char, ...)
+    title = models.CharField(
+        max_length=120,
     )
 
     description = models.TextField()
 
-    priority = models.IntegerField()
+    done = models.BooleanField(default=False)

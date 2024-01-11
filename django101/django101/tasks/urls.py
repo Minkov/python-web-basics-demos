@@ -1,16 +1,16 @@
-# django101.tasks.urls.py
+'''
+Do always when creating new Django App:
 
+1. (Optional) Move to project directory
+2. Create `urls.py` file
+3. Register this Django app's `urls.py` in the project's `urls.py` file
+4. Register this Django app in `settings.py`'s `INSTALLED_APPS`
+
+'''
 from django.urls import path
 
-from django101.tasks.views import show_bare_minimum_view, show_all_tasks, index
+from .views import index
 
 urlpatterns = (
-    # http://localhost:8000/tasks/
-    path('', index),
-    # http://localhost:8000/tasks/it-works/
-    path('it-works/', show_bare_minimum_view),
-    # http://localhost:8000/tasks/all/
-    path('all/', show_all_tasks),
-    # localhost:8000/tasks/create/
-    # path('create/', create),
+    path("", index),
 )
