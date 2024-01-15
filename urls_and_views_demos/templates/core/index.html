@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/main.css">
+    <script src="/static/main.js"></script>
+</head>
+<body>
+
+<h1>{{ title }}</h1>
+<h2> Non-existent from here "{{ does_not_exist }}" to here</h2>
+<ul>
+    <li>Method: {{ method }}</li>
+    <li>Method from request: {{ request.method }}</li>
+    <li>Path: {{ path }}</li>
+    <li>User: {{ user }}</li>
+</ul>
+
+</body>
+</html>
