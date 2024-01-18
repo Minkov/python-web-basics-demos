@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% url 'index' %}
+    {{ get_params }}
+    <h1>{{ title }}</h1>
+    <ul>
+        {% for age in ages %}
+            <li>
+                <a href="{% url 'index' %}?age={{ age }}">{{ age }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'employee_details' pk=7 %}">Go to employee</a>
+
+    <h1>With `dict`</h1>
+    <h2>{{ person.first_name }}</h2>
+    <h2>{{ person.last_name }}</h2>
+    <p>{{ person.items }}</p>
+
+    <h1>With `class`</h1>
+    <h2>{{ person_obj.first_name }}</h2>
+    <h2>{{ person_obj.last_name }}</h2>
+    <h2>{{ person_obj.full_name }}</h2>
+
+    <h3>{{ 123 }}</h3>
+    <h4>{{ 1as }}</h4>
+    <hr>
+    <h3>{{ ll.1 }}</h3>
+
+    <h1>Filters</h1>
+
+    <p>
+        {{ person_obj.full_name }}
+    </p>
+    <p>
+        {{ person_obj.full_name|truncatechars:3 }}
+    </p>
+
+    <p>
+        {{ person_obj.full_name|truncatechars:33 }}
+    </p>
+
+    <p>
+        {{ person_obj.age }}
+    </p>
+    <p>
+        {{ person_obj.age|default:"Unknown" }}
+    </p>
+
+    <p>
+        {{ person_obj.first_name|default:"Unknown name" }}
+    </p>
+    <p>
+        {{ person|length }}
+    </p>
+
+    <p>{{ names|join:', ' }}</p>
+
+    <p>{{ date }}</p>
+    <p>{{ date|date:'D d M Y' }}</p>
+
+
+    <hr>
+    <h1>Tags</h1>
+
+    <h2>if-elif-else</h2>
+    {#{% if ages %}#}
+    {#    <p>{{ ages|join:', ' }}</p>#}
+    {#{% endif %}#}
+
+    {% if ages %}
+        <p>{{ ages|join:", " }}</p>
+    {% endif %}
+
+    {% if ages %}
+        <p>{{ ages_empty|join:", " }}</p>
+    {% else %}
+        <p>No ages</p>
+    {% endif %}
+
+
+
+    <h2>for, for-empty</h2>
+
+    <ul>
+        {% for age in ages %}
+            {% if age <= 20 %}
+                <li class="young">
+                    <strong>{{ age }}</strong>
+                </li>
+            {% else %}
+                <li class="not-that-young">
+                    <strong>{{ age }}</strong>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+    <ul>
+        {% for age in ages %}
+            <li>
+                <strong>{{ age }}</strong>
+            </li>
+        {% empty %}
+            No ages
+        {% endfor %}
+    </ul>
+
+
+    <ul>
+        {% for age in ages_empty %}
+            <li>
+                <strong>{{ age }}</strong>
+            </li>
+        {% empty %}
+            No ages
+        {% endfor %}
+    </ul>
+
+    {% if ages_empty %}
+        No age
+    {% else %}
+        {% for age in ages_empty %}
+            <li>
+                <strong>{{ age }}</strong>
+            </li>
+        {% endfor %}
+    {% endif %}
+
+    {# {%  %} {{  }} #}
+
+    <hr>
+
+    <h1>CSRF token</h1>
+
+    {{ csrf_token }}
+
+    {% csrf_token %}
+
+    <hr>
+
+    {% lorem %}
+
+    <hr>
+    {% lorem 3 %}
+
+    {#{% lorem 3 "b"%}#}
+
+    {# #}
+    {% comment %}
+    {% navigation %}
+{% endcomment %}
+
+{% endblock %}

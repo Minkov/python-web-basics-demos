@@ -1,0 +1,16 @@
+h1 {
+    color: green;
+    font-size: 24px;
+}
+
+body {
+    padding: 50px;
+}
+
+.young {
+    color: green;
+}
+
+.not-that-young {
+    color: purple;
+}
