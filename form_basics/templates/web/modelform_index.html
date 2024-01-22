@@ -1,0 +1,20 @@
+<h1>Model form</h1>
+<form action="{% url 'index-models' %}" method="post">
+    {{ employee_form.as_p }}
+
+    <button>Create</button>
+    {% csrf_token %}
+</form>
+
+<ul>
+    {% for employee in employee_list %}
+        <li>{{ employee.full_name }}
+            <a href="{% url 'update-employee' pk=employee.pk %}">Edit</a>
+        </li>
+    {% endfor %}
+</ul>
+{#<hr>#}
+{##}
+{#<h1>Normal form</h1>#}
+{#{{ normal_employee_form.as_p }}#}
+{##}

@@ -1,0 +1,6 @@
+<form action="{% url 'update-employee' pk=employee.pk %}" method="post">
+    {{ form.as_p }}
+
+    <button>Update</button>
+    {% csrf_token %}
+</form>

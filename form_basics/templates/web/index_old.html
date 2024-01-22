@@ -1,0 +1,23 @@
+<form action="/create/" method="post"> <!-- action=CURRENT_URL, method=get -->
+    {# Form fields #}
+{# Inputs   #}
+    <input type="text" name="first_name"> {# single-line text #}
+    <input type="number" name="age">
+
+    {# Dropdowns #}
+    <select name="interests">
+        <option value="1">Gaming</option>
+        <option value="2">Reading books</option>
+        <option value="3">Watching movies</option>
+        <option value="4">Sport</option>
+    </select>
+
+    <select name="" id="">
+        {% for interest in interests %}
+            <option value="{{ interest.pk }}">{{ interest.name }}</option>
+        {% endfor %}
+    </select>
+    <button>Send</button>
+    {# Old school:   #}
+    {#    <input type="submit" value="Send">#}
+</form>
