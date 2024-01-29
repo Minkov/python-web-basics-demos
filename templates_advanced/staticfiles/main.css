@@ -1,0 +1,29 @@
+h1, h2, h3, h4, h5, h6 {
+    color: purple;
+    border-bottom: 1px solid purple;
+}
+
+body {
+    font-size: 14px;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.7em;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.btn-success {
+    --bs-btn-bg: orange;
+}

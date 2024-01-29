@@ -1,0 +1,20 @@
+{% extends 'master.html' %}
+
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'sidebar.css' %}">
+{% endblock %}
+
+{% block main_content %}
+    <div class="root">
+        <div class="left">
+            {% block sidebar %}
+            {% endblock %}
+        </div>
+        <div class="right">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

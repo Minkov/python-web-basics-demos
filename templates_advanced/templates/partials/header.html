@@ -1,0 +1,29 @@
+{% load user_tags %}
+
+<header>
+    <div>
+        <h1><a href="{% url 'index' %}">
+            {% if text %}
+                {{ text }}
+            {% else %}
+                Doncho's App
+            {% endif %}
+        </a></h1>
+        {#  `include`d templates have access to the view context #}
+        {#        {% if request.user.is_authenticated %}#}
+        {#            {{ request.user }}#}
+        {#        {% else %}#}
+        {#            Anonymous#}
+        {#        {% endif %}#}
+
+        {% profile_avatar %}
+    </div>
+    <nav>
+        <ul>
+            <li><a href="{% url 'index' %}">Index</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'show_bootstrap' %}?has_bootstrap=1">With bootstrap</a></li>
+            <li><a href="{% url 'show_bootstrap' %}">Without bootstrap</a></li>
+        </ul>
+    </nav>
+</header>

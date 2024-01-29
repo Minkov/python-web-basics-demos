@@ -1,0 +1,43 @@
+{% extends 'master_with_sidebar.html' %}
+{% load list_tags %}
+
+{% load number_filters %}
+
+{% block page_title %} - Home {% endblock %}
+
+{% block body_end_scripts %}
+    <script>
+        setTimeout(() => {
+            document.body.innerHTML += '<h2>After 2 seconds</h2>';
+        }, 2000);
+    </script>
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'web/about.html' %} {# Don't do this!!! #}
+{% endblock %}
+
+{% block content %}
+    <h2>This is {{ cat_name|lower|capfirst }}:</h2>
+    <img
+            width="200"
+            src="{{ cat_image }}" alt="">
+    <h2>Numbers:</h2>
+    <p><strong>All:</strong>:{{ numbers }}</p>
+    <p><strong>Odd:</strong>{{ numbers|only_odd }}</p>
+    <p><strong>Even:</strong>{{ numbers|only_even }}</p>
+    <p><strong>Positive:</strong>{{ numbers|only_positive }}</p>
+    <p><strong>Negative:</strong>{{ numbers|only_negative }}</p>
+
+
+    <h2>With tags</h2>
+    <p><strong>All:</strong>: {% list_of numbers %}</p>
+    <p><strong>Odd:</strong>{{ numbers|only_odd }}</p>
+    <p><strong>Even:</strong>{{ numbers|only_even }}</p>
+    <p><strong>Positive:</strong>{{ numbers|only_positive }}</p>
+    <p><strong>Negative:</strong>{{ numbers|only_negative }}</p>
+
+    <h1>{% current_time %}</h1>
+{% endblock %}
+
+<h2>Something else</h2>

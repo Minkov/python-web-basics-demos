@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Doncho's App {% block page_title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+
+    {% block styles %} {% endblock %}
+
+    {# all pages scripts #}
+
+    {% block head_scripts %}
+    {% endblock %}
+</head>
+
+<body>
+
+{% block body_start_scripts %} {% endblock %}
+
+{% include 'partials/header.html' with text='The app about cats' %}
+{#{% include 'partials/header.html' %}#}
+
+<h1>Welcome to Doncho's App!</h1>
+
+{# `block` defines a placeholder where #}
+{# inheritor templates can insert their #}
+{# custom/specific HTML #}
+{% block main_content %}
+    {# We can define a default HTML #}
+    <h2>No content</h2>
+{% endblock %}
+
+{% include 'partials/footer.html' %}
+
+{% block body_end_scripts %} {% endblock %}
+
+</body>
+</html>
