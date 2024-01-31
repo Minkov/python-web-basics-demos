@@ -1,0 +1,6 @@
+{% csrf_token %}
+{{ form_set.management_form }}
+
+{% for form in form_set %}
+    {{ form.as_p }}
+{% endfor %}
