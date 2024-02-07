@@ -1,0 +1,14 @@
+<ul>
+    {% for todo in todo_list %}
+        <li>
+            <strong>{{ todo.title }}</strong> - {{ todo.deadline }}
+        </li>
+    {% endfor %}
+</ul>
+
+<form action="{% url "todo_create" %}" method="post">
+    {{ form.as_p }}
+
+    <button>Create TODO</button>
+    {% csrf_token %}
+</form>
