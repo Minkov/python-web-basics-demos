@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+
+    <form action="{% url 'todos-list' %}" method="get">
+        {{ filter_form }}
+
+        <button>Search</button>
+    </form>
+
+    <select id="select_page_sizes">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="25">25</option>
+    </select>
+
+    <ul>
+        {% for todo in object_list %}
+            <li>
+                <a href="{% url 'todos-detail' pk=todo.pk %}">{{ todo.pk }} - {{ todo.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock %}
+
+{% block scripts_body_end %}
+    <script>
+
+        const getQueryParams = (queryParamsString) => {
+            return queryParamsString
+                .split('&')
+                .map(pair => pair.split('='));
+        }
+
+        const buildQueryParamsString = (queryParams) => {
+            return queryParams
+                .map(([key, value]) => `${key}=${value}`)
+                .join('&');
+        }
+
+        var selectPageSizes = document.getElementById('select_page_sizes');
+        selectPageSizes.addEventListener('input', () => {
+            var paginateBy = selectPageSizes.value;
+            {# map(collection, func) in PY #}
+            {# collection.map(func) in JS #}
+            var queryParams = getQueryParams(window.location.search.substring(1))
+
+            var hasPaginateBy = false;
+            for (var i = 0; i < queryParams.length; i++) {
+                if (queryParams[i][0] === 'paginate_by') {
+                    queryParams[i][1] = paginateBy;
+                    hasPaginateBy = true;
+                }
+            }
+            if (!hasPaginateBy) {
+                queryParams.push(['paginate_by', paginateBy])
+            }
+
+            var queryParamsString = buildQueryParamsString(queryParams);
+
+            window.location = window.location.origin + window.location.pathname + "?" + queryParamsString;
+        });
+
+    </script>
+{% endblock %}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .nav {
+            display: flex;
+            gap: 10px;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+
+<ul class="nav">
+    <li><a href="{% url 'todos-list' %}">Index</a></li>
+    <li><a href="{% url 'todos-create' %}">Create todo</a></li>
+</ul>
+
+{% block content %}
+{% endblock %}
+
+
+{% block scripts_body_end %}
+{% endblock %}
+</body>
+</html>
